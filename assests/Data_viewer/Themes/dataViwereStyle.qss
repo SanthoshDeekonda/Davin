@@ -1,0 +1,128 @@
+QWidget {
+    background-color: #121212;
+    color: #e5e5e5;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+QLabel {
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-radius: 6px;
+    color: #e5e5e5;
+}
+
+QListWidget {
+    background-color: #333;
+    border: 1px solid #444;
+    padding: 10px;
+    font-size: 14px;
+    color: #eaeaea;
+    border-radius: 8px;
+}
+
+QListWidget::item {
+    padding: 10px;
+    margin: 4px 0;
+    border-radius: 4px;
+}
+
+QListWidget::item:selected {
+    background-color: #555;
+    color: #ffffff;
+}
+
+QPushButton {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 6px;
+}
+
+QPushButton:hover {
+    background-color: #60a5fa;
+}
+
+QPushButton:pressed {
+    background-color: #2563eb;
+    padding-left: 9px;
+    padding-top: 9px;
+}
+
+
+QScrollBar:vertical {
+    background: #1e1e1e;         
+    width: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #5e5e5e;         
+    min-height: 20px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background: none;
+    height: 0px;
+}
+
+QScrollBar::add-page:vertical,
+QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+QScrollBar:horizontal {
+    background: #1e1e1e;
+    height: 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #5e5e5e;
+    min-width: 20px;
+    border-radius: 4px;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    background: none;
+    width: 0px;
+}
+
+QScrollBar::add-page:horizontal,
+QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+
+QTableWidget {
+    background-color: #1e1e1e;
+    alternate-background-color: #2c2c2c;
+    gridline-color: #3c3c3c;
+    color: #e0e0e0;
+    selection-background-color:rgba(11, 12, 14, 0.86);
+    selection-color: #ffffff;
+}
+
+QHeaderView::section {
+    background-color: #2a2a2a;
+    color: #f0f0f0;
+    padding: 6px;
+    font-weight: bold;
+    border: 1px solid #444444;
+}
+
+QTableCornerButton::section {
+    background-color: #2a2a2a;
+    border: 1px solid #444444;
+}
+
+QTableWidget QTableView::item {
+    padding: 6px;
+    border: none;
+    color: #ffffff;
+}
