@@ -23,7 +23,11 @@ class Download_Image(QThread):
 
     def run(self):
         self.notify_status.emit("started")
-        self.graph.write_image(self.path, format="png")
+        try:
+            self.graph.write_image(self.path, format="png")
+        except Exception as e:
+            self.notify_status.emit("Error")
+            return
         self.notify_status.emit("ended")
 
 
@@ -192,7 +196,10 @@ class Visualization(VisualizationLayout):
                 return
 
             self.CurrentSavedChart = title
-            self.save_thread = Download_Image(self.fig, f"Temp/visualizations/{title}.png")
+            try:
+                self.save_thread = Download_Image(self.fig, f"Temp/visualizations/{title}.png")
+            except Exception as e:
+                show_message("Don't use '/' and '\\' in the title.." )
             self.save_thread.notify_status.connect(self.notify_save_status)
             self.save_thread.finished.connect(self.save_thread.deleteLater)
             self.save_thread.finished.connect(lambda: setattr(self, "save_thread", None))
@@ -208,6 +215,7 @@ class Visualization(VisualizationLayout):
         elif status == "ended":
             self.download_btn.setDisabled(False)
             show_message(self, "Visualization successfully saved...")
+        
 
     def notify_save_status(self, status):
         if status == "started":
@@ -217,6 +225,9 @@ class Visualization(VisualizationLayout):
             self.saved_visualization.emit(self.CurrentSavedChart)
             self.save_btn.setDisabled(False)
             show_message(self, "Visualization ready for report...")
+        elif status == "Error":
+            self.save_btn.setDisabled(False)
+            show_message(self, "Invlid Title")
 
             
     def GetSaveStatus(self, status):
