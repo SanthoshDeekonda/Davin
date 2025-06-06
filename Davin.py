@@ -15,8 +15,8 @@ class init_davin(QThread):
     def __init__(self):
         super().__init__()
 
-        self.x = [str(x) for x in range(101)]
-        self.y = [y for y in range(101)]
+        self.x = [str(x) for x in range(10)]
+        self.y = [y for y in range(10)]
         self.path = "__demo__.png"
 
 
@@ -127,7 +127,7 @@ class Davin_Core(Master_Layout):
             if os.path.exists(path):
                 shutil.rmtree(path)
             
-            os.mkdir(path)
+            os.makedirs(path)
 
 
     def closeEvent(self, event):
@@ -147,26 +147,10 @@ class Davin_Core(Master_Layout):
 if __name__ == "__main__":
     app = QApplication([])
 
-    splashscreen = SplashScreen()
-    splashscreen.show()
+    davin = Davin_Core()
+    davin.show()
 
-    init = init_davin()
-    init.current_state.connect(splashscreen.Update_Current_Process)
-
-    def show_davin():
-        Davin = Davin_Core()
-
-        splashscreen.close()
-        Davin.show()
-
-        app.main_window = Davin
-
-
-    init.finished.connect(show_davin)
-    init.start()
-
-    app.exec_()
-    
+    app.exec_()    
 
 
 

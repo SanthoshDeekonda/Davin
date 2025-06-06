@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QColorDialog, QFileDialog
-from PyQt5.QtCore import QThread, pyqtSignal, QUrl
+from PyQt5.QtWidgets import QColorDialog, QFileDialog, QApplication
+from PyQt5.QtCore import QThread, pyqtSignal, QUrl, Qt
 from Visualization_layout import VisualizationLayout
 
 from util import Generate_graph, show_message
@@ -50,6 +50,8 @@ class Visualization(VisualizationLayout):
         
         self.save_thread = None
         self.dow_thread = None
+
+        self.generating_chart = False
 
 
         self.Xlable.dropLable.connect(self.getXcolumn)
@@ -103,15 +105,20 @@ class Visualization(VisualizationLayout):
 
     
     def create_chart(self, title, x, y, color, chart_type="Bar Chart"):
+        
+        self.generating_chart = True
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+
         self.thread = QThread()
         self.generate_chart = Generate_graph(x,y, title, color, chart_type)
-        self.generate_chart.processed_graph.connect(self.display_chart)
-
         self.generate_chart.moveToThread(self.thread)
+
         self.thread.started.connect(self.generate_chart.process_data)
+        self.generate_chart.processed_graph.connect(self.display_chart)
+        
         self.generate_chart.processed_graph.connect(self.thread.quit)
-        self.generate_chart.processed_graph.connect(self.generate_chart.deleteLater)
-        self.generate_chart.processed_graph.connect(self.thread.deleteLater)
+
+        self.thread.finished.connect(self.unlock_slot)
 
         self.chart_place_holder.screen.stop()
         self.graph_loading_screen.screen.start()
@@ -126,12 +133,21 @@ class Visualization(VisualizationLayout):
 
 
     def selected_chart(self, item):
+
+        if self.generating_chart:
+            show_message(self, "Chart generation is already in progress. Please wait...")
+            return
+
         chartType = item.text()
         if self.Selected_X is not None and self.Selected_Y is not None:
             title = self.chart_Title.text() if self.chart_Title.text() else chartType
             self.create_chart(title,self.Selected_X, self.Selected_Y, self.color, chartType)
 
-
+    def unlock_slot(self):
+        self.thread.deleteLater()
+        self.generate_chart.deleteLater()
+        QApplication.restoreOverrideCursor()
+        self.generating_chart = False
 
 
     def Color_Picker(self):
