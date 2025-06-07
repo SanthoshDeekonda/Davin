@@ -1,7 +1,7 @@
 from master_layout import Master_Layout
 from PyQt5.QtWidgets import QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import QThread, pyqtSignal, QTimer
-from util import show_message
+from util import show_message, load_style
 from splashscreen import SplashScreen
 import os
 import shutil
@@ -75,9 +75,19 @@ class Davin_Core(Master_Layout):
         if sender.text() == "Exit":
             sys.exit(0)
         elif sender.text() == "Dark Theme":
-            print("Dark Theme")
+
+            self.setStyleSheet(load_style("assests/mainWindow/themes/MainWindow.qss"))
+            self.DataViewer.setStyleSheet(load_style("assests/Data_viewer/Themes/dataViwereStyle.qss"))
+            self.Visualization.setStyleSheet(load_style("assests/visualization/themes/visualizationLight.qss"))
+            self.Report.setStyleSheet(load_style("assests/Report/theme/report.qss"))
+
         elif sender.text() == "Light Theme":
-            print("Light Theme")
+
+            self.setStyleSheet(load_style("assests/mainWindow/themes/lightMainWindow.qss"))
+            self.DataViewer.setStyleSheet(load_style("assests/Data_viewer/Themes/lightdataviwereStyle.qss"))
+            self.Visualization.setStyleSheet(load_style("assests/visualization/themes/lightvisualization.qss"))
+            self.Report.setStyleSheet(load_style("assests/Report/theme/lightreport.qss"))
+            
         else:
             path = os.path.expanduser("~/Quick access")
                 
