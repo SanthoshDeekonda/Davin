@@ -111,6 +111,7 @@ class Generate_graph(QObject):
 
     processed_columns = pyqtSignal(np.ndarray, np.ndarray, str)
     processed_graph = pyqtSignal(str, object)
+    error_message = pyqtSignal(str)
 
     def __init__(self, x_data, y_data, title, color, chart_type="bar"):
         super().__init__()
@@ -151,7 +152,6 @@ class Generate_graph(QObject):
         self.processed_columns.emit(filtered_x, filtered_y, self.chart_type)
 
     def generate_chart(self, x, y, chart_type):
-
         chart_generator = {
             "Bar Chart": lambda: go.Figure(data=[go.Bar(x=x, y=y, marker_color=self.color)]),
             "Horizontal Bar Chart": lambda:  go.Figure(data=[go.Bar(x=y, y=x, orientation='h', marker_color=self.color)]),
@@ -176,7 +176,11 @@ class Generate_graph(QObject):
 
         }
 
-        fig = chart_generator.get(chart_type, lambda: go.Figure())()
+        try:
+            fig = chart_generator.get(chart_type, lambda: go.Figure())()
+        except Exception as e:
+            self.error_message.emit(f"Error generating chart")
+            return
 
         if chart_type == "Histogram":
             fig.update_layout(

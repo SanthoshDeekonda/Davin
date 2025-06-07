@@ -115,8 +115,10 @@ class Visualization(VisualizationLayout):
 
         self.thread.started.connect(self.generate_chart.process_data)
         self.generate_chart.processed_graph.connect(self.display_chart)
+        self.generate_chart.error_message.connect(self.chart_error)
 
         self.generate_chart.processed_graph.connect(self.thread.quit)
+        self.generate_chart.error_message.connect(self.thread.quit)
 
         self.thread.finished.connect(self.unlock_slot)
 
@@ -255,5 +257,8 @@ class Visualization(VisualizationLayout):
 
         self.Canvas.load(dummy_place_holder)
         
+    def chart_error(self, error_message):
+        self.chartStack.setCurrentIndex(1)
+        show_message(self, error_message)
         
     
