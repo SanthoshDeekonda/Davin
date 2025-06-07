@@ -115,7 +115,7 @@ class Visualization(VisualizationLayout):
 
         self.thread.started.connect(self.generate_chart.process_data)
         self.generate_chart.processed_graph.connect(self.display_chart)
-        
+
         self.generate_chart.processed_graph.connect(self.thread.quit)
 
         self.thread.finished.connect(self.unlock_slot)
@@ -161,6 +161,7 @@ class Visualization(VisualizationLayout):
         if status:
             self.chartStack.setCurrentIndex(1)
             self.graph_loading_screen.screen.stop()
+    
 
     def clear_canvas(self):
         self.chart_place_holder.screen.start()
@@ -212,10 +213,7 @@ class Visualization(VisualizationLayout):
                 return
 
             self.CurrentSavedChart = title
-            try:
-                self.save_thread = Download_Image(self.fig, f"Temp/visualizations/{title}.png")
-            except Exception as e:
-                show_message("Don't use '/' and '\\' in the title.." )
+            self.save_thread = Download_Image(self.fig, f"Temp/visualizations/{title}.png")
             self.save_thread.notify_status.connect(self.notify_save_status)
             self.save_thread.finished.connect(self.save_thread.deleteLater)
             self.save_thread.finished.connect(lambda: setattr(self, "save_thread", None))

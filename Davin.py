@@ -1,6 +1,6 @@
 from master_layout import Master_Layout
 from PyQt5.QtWidgets import QApplication, QFileDialog, QMessageBox
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, QTimer
 from util import show_message
 from splashscreen import SplashScreen
 import os
@@ -11,12 +11,13 @@ import sys
 class init_davin(QThread):
 
     current_state = pyqtSignal(str)
+    finished_setup = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
-        self.x = [str(x) for x in range(10)]
-        self.y = [y for y in range(10)]
+        self.x = [str(x) for x in range(101)]
+        self.y = [y for y in range(101)]
         self.path = "__demo__.png"
 
 
@@ -30,8 +31,11 @@ class init_davin(QThread):
         self.current_state.emit("Optimizing modules....")
         fig.write_image(self.path, format="png")
 
-        os.remove(self.path)
+        if os.path.exists(self.path):
+            os.remove(self.path)
+        
         self.current_state.emit("Initialization complete....")
+        self.finished_setup.emit()
         
 
 
@@ -141,17 +145,32 @@ class Davin_Core(Master_Layout):
 
 
 
-        
-
 
 if __name__ == "__main__":
     app = QApplication([])
 
-    davin = Davin_Core()
-    davin.show()
+    splash_screen = SplashScreen()
+    splash_screen.show()
 
-    app.exec_()    
+    initDavin = init_davin()
 
+    initDavin.current_state.connect(splash_screen.Update_Current_Process)
+    initDavin.finished_setup.connect(initDavin.quit)
+
+    def display_davin():
+        initDavin.deleteLater()
+        davin = Davin_Core()
+        splash_screen.hide()
+
+        davin.show()
+        app.main_window = davin
+
+    initDavin.finished.connect(display_davin)
+    QTimer.singleShot(0, initDavin.start)
+
+    app.exec_()
+
+    
 
 
     
