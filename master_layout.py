@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from data_viewer import DataViewer
 from Visualization import Visualization
 from Report import Report
-from util import load_style
+from util import load_style, resource_path
 import os
 
 class Master_Layout(QMainWindow):
@@ -16,7 +16,7 @@ class Master_Layout(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Davin")
-        self.setWindowIcon(QIcon("assests/mainWindow/logo/Davin_Logo.png"))
+        self.setWindowIcon(QIcon(resource_path("assests/mainWindow/logo/Davin_Logo.png")))
         self.showMaximized()
 
         self.ToolBarActions = {}
@@ -58,7 +58,7 @@ class Master_Layout(QMainWindow):
         self.LayoutStack.addWidget(self.Report)
         
         self.LayoutStack.setCurrentIndex(0)
-        self.setStyleSheet(load_style("assests/mainWindow/themes/MainWindow.qss"))
+        self.setStyleSheet(load_style(resource_path("assests/mainWindow/themes/MainWindow.qss")))
         self.setCentralWidget(self.container)
 
     # implementation of setup functions
@@ -96,7 +96,7 @@ class Master_Layout(QMainWindow):
     def setupToolBar(self, isSelected):
         if isSelected and not self.toolBar_initialized:
             items = ["Data", "Visualization", "Report"]
-            path = "assests\mainWindow\images"
+            path = resource_path("assests\mainWindow\images")
             icons = os.listdir(path)
             icons.sort()
 

@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QListWidget, QSt
                              QPushButton, QSpacerItem, QSizePolicy, QFontComboBox, QComboBox, QToolButton,
                              QButtonGroup)
 from PyQt5.QtGui import QIcon
-from util import Animation_Lable, load_style
+from util import Animation_Lable, load_style, resource_path
 
 class ReportLayout(QWidget):
 
@@ -29,7 +29,7 @@ class ReportLayout(QWidget):
         self.report_container.setLayout(self.ReportStack)
 
 
-        self.report_place_holder = Animation_Lable("assests/mainWindow/UI_GIF/ReportAnimation.gif")
+        self.report_place_holder = Animation_Lable(resource_path("assests/mainWindow/UI_GIF/ReportAnimation.gif"))
         self.saved_chart = QListWidget()
         self.text_area = QTextEdit()
 
@@ -59,42 +59,42 @@ class ReportLayout(QWidget):
 
         self.moreOptions_btn = QToolButton()
         self.moreOptions_btn.setToolTip("More")
-        self.moreOptions_btn.setIcon(QIcon("assests/Report/buttons/menu.png"))
+        self.moreOptions_btn.setIcon(QIcon(resource_path("assests/Report/buttons/menu.png")))
 
         self.centerAlign = QToolButton()
         self.centerAlign.setToolTip("Align Center")
-        self.centerAlign.setIcon(QIcon("assests/Report/buttons/center-align.png"))
+        self.centerAlign.setIcon(QIcon(resource_path("assests/Report/buttons/center-align.png")))
 
         self.leftAlign = QToolButton()
         self.leftAlign.setToolTip("Align Left")
-        self.leftAlign.setIcon(QIcon("assests/Report/buttons/left-align.png"))
+        self.leftAlign.setIcon(QIcon(resource_path("assests/Report/buttons/left-align.png")))
 
         self.rightAlign = QToolButton()
         self.rightAlign.setToolTip("Align Right")
-        self.rightAlign.setIcon(QIcon("assests/Report/buttons/Right-align.png"))
+        self.rightAlign.setIcon(QIcon(resource_path("assests/Report/buttons/Right-align.png")))
 
         self.justify = QToolButton()
         self.justify.setToolTip("Justify")
-        self.justify.setIcon(QIcon("assests/Report/buttons/justify.png"))
+        self.justify.setIcon(QIcon(resource_path("assests/Report/buttons/justify.png")))
 
         self.bulletPoint = QToolButton()
         self.bulletPoint.setToolTip("Bullet point")
-        self.bulletPoint.setIcon(QIcon("assests/Report/buttons/list-interface-symbol.png"))
+        self.bulletPoint.setIcon(QIcon(resource_path("assests/Report/buttons/list-interface-symbol.png")))
 
         self.numberPoint = QToolButton()
         self.numberPoint.setToolTip("Number Point")
-        self.numberPoint.setIcon(QIcon("assests/Report/buttons/point.png"))
+        self.numberPoint.setIcon(QIcon(resource_path("assests/Report/buttons/point.png")))
 
         self.TextColor = QToolButton()
         self.TextColor.setToolTip("Text Color")
-        self.TextColor.setIcon(QIcon("assests/Report/buttons/color-text.png"))
+        self.TextColor.setIcon(QIcon(resource_path("assests/Report/buttons/color-text.png")))
 
 
         self.setup_body()
         self.setup_footer()
 
         self.setLayout(self.report_mainLayout)
-        self.setStyleSheet(load_style("assests/Report/theme/report.qss"))
+        self.setStyleSheet(load_style(resource_path("assests/Report/theme/report.qss")))
         self.ReportStack.setCurrentIndex(0)
         self.report_place_holder.screen.start()
 

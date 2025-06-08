@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QListWidget, QLa
                              QStackedLayout)
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt
-from util import load_style, DropLable, Animation_Lable
+from util import load_style, DropLable, Animation_Lable, resource_path
 
 class DataViewerLayout(QWidget):
     def __init__(self):
@@ -22,7 +22,7 @@ class DataViewerLayout(QWidget):
         self.table_stack = QStackedLayout()
         self.table_container = QWidget()
 
-        self.data_loading_screen = Animation_Lable("assests/mainWindow/UI_GIF/Loading_Animation.gif")
+        self.data_loading_screen = Animation_Lable(resource_path("assests/mainWindow/UI_GIF/Loading_Animation.gif"))
 
         self.numeric_column_list = QListWidget()
         self.categorical_columns_list = QListWidget()
@@ -40,7 +40,7 @@ class DataViewerLayout(QWidget):
 
 
 
-        self.setStyleSheet(load_style("assests/Data_viewer/Themes/dataViwereStyle.qss"))
+        self.setStyleSheet(load_style(resource_path("assests/Data_viewer/Themes/dataViwereStyle.qss")))
         self.setLayout(self.Widget_mainLayout)
 
     def setupBody(self):
@@ -52,7 +52,7 @@ class DataViewerLayout(QWidget):
 
         self.Body.addLayout(self.Widget_columnsInfo, 20)
         
-        place_holder = QPixmap("assests/Data_viewer/Images/No_data.png").scaled(100,100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        place_holder = QPixmap(resource_path("assests/Data_viewer/Images/No_data.png")).scaled(100,100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.table_place_holder.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.table_place_holder.setPixmap(place_holder)
 
@@ -71,8 +71,8 @@ class DataViewerLayout(QWidget):
     def setupFooter(self):
         self.table_data_info.addWidget(self.info, 80)
 
-        self.backward_btn.setIcon(QIcon("assests/Data_viewer/Buttons/left-arrow.ico"))
-        self.forward_btn.setIcon(QIcon("assests/Data_viewer/Buttons/right-arrow.ico"))
+        self.backward_btn.setIcon(QIcon(resource_path("assests/Data_viewer/Buttons/left-arrow.ico")))
+        self.forward_btn.setIcon(QIcon(resource_path("assests/Data_viewer/Buttons/right-arrow.ico")))
 
         self.table_data_info.addWidget(self.backward_btn, 10)
         self.table_data_info.addWidget(self.forward_btn, 10)

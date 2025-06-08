@@ -94,7 +94,7 @@ class Report(ReportLayout):
     def Make_report(self):
 
         if self.Selected_Chart is not None:
-            path =  os.path.join("Temp", "visualizations", self.Selected_Chart)
+            path =  os.path.join("cache", "visualizations", self.Selected_Chart)
             path = path + ".png"
             temp_path = os.path.expanduser("~/Documents")
             save_path, _ = QFileDialog.getSaveFileName(self, "Save PDF", temp_path, "PDF Files (*.pdf)")
@@ -124,7 +124,7 @@ class Report(ReportLayout):
 
     
     def displayChart(self, item):
-        path = "Temp\\visualizations"
+        path = "cache\\visualizations"
         chart = item.text()
         chart = chart + ".png"
         path = os.path.join(path, chart)
@@ -222,7 +222,7 @@ class Report(ReportLayout):
         if action == actions["Delete"]:
             row = self.saved_chart.row(item)
             self.saved_chart.takeItem(row)
-            os.remove(f"Temp/visualizations/{clicked_chart}.png")
+            os.remove(f"cache/visualizations/{clicked_chart}.png")
         elif action == actions["View"]:
             self.displayChart(item)
 

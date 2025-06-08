@@ -1,7 +1,7 @@
 from master_layout import Master_Layout
 from PyQt5.QtWidgets import QApplication, QFileDialog, QMessageBox
 from PyQt5.QtCore import QThread, pyqtSignal, QTimer
-from util import show_message, load_style
+from util import show_message, load_style, resource_path
 from splashscreen import SplashScreen
 import os
 import shutil
@@ -76,17 +76,17 @@ class Davin_Core(Master_Layout):
             sys.exit(0)
         elif sender.text() == "Dark Theme":
 
-            self.setStyleSheet(load_style("assests/mainWindow/themes/MainWindow.qss"))
-            self.DataViewer.setStyleSheet(load_style("assests/Data_viewer/Themes/dataViwereStyle.qss"))
-            self.Visualization.setStyleSheet(load_style("assests/visualization/themes/visualizationLight.qss"))
-            self.Report.setStyleSheet(load_style("assests/Report/theme/report.qss"))
+            self.setStyleSheet(load_style(resource_path("assests/mainWindow/themes/MainWindow.qss")))
+            self.DataViewer.setStyleSheet(load_style(resource_path("assests/Data_viewer/Themes/dataViwereStyle.qss")))
+            self.Visualization.setStyleSheet(load_style(resource_path("assests/visualization/themes/visualizationLight.qss")))
+            self.Report.setStyleSheet(load_style(resource_path("assests/Report/theme/report.qss")))
 
         elif sender.text() == "Light Theme":
 
-            self.setStyleSheet(load_style("assests/mainWindow/themes/lightMainWindow.qss"))
-            self.DataViewer.setStyleSheet(load_style("assests/Data_viewer/Themes/lightdataviwereStyle.qss"))
-            self.Visualization.setStyleSheet(load_style("assests/visualization/themes/lightvisualization.qss"))
-            self.Report.setStyleSheet(load_style("assests/Report/theme/lightreport.qss"))
+            self.setStyleSheet(load_style(resource_path("assests/mainWindow/themes/lightMainWindow.qss")))
+            self.DataViewer.setStyleSheet(load_style(resource_path("assests/Data_viewer/Themes/lightdataviwereStyle.qss")))
+            self.Visualization.setStyleSheet(load_style(resource_path("assests/visualization/themes/lightvisualization.qss")))
+            self.Report.setStyleSheet(load_style(resource_path("assests/Report/theme/lightreport.qss")))
             
         else:
             path = os.path.expanduser("~/Quick access")
@@ -136,7 +136,7 @@ class Davin_Core(Master_Layout):
         self.Visualization.chartStack.setCurrentIndex(0)
 
     def setTempDir(self):
-            path = "Temp/visualizations"
+            path = "cache/visualizations"
 
             if os.path.exists(path):
                 shutil.rmtree(path)
@@ -148,7 +148,7 @@ class Davin_Core(Master_Layout):
         conformation = QMessageBox.question(self, "Exit", "Are you sure you want to quit?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         
         if conformation == QMessageBox.Yes:
-            shutil.rmtree("Temp/visualizations")
+            shutil.rmtree("cache/visualizations")
             event.accept()
         else:
             event.ignore()

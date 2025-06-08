@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QColorDialog, QFileDialog, QApplication
 from PyQt5.QtCore import QThread, pyqtSignal, QUrl, Qt
 from Visualization_layout import VisualizationLayout
 
-from util import Generate_graph, show_message
+from util import Generate_graph, show_message, resource_path
 import os
 
 class Download_Image(QThread):
@@ -215,7 +215,7 @@ class Visualization(VisualizationLayout):
                 return
 
             self.CurrentSavedChart = title
-            self.save_thread = Download_Image(self.fig, f"Temp/visualizations/{title}.png")
+            self.save_thread = Download_Image(self.fig, f"cache/visualizations/{title}.png")
             self.save_thread.notify_status.connect(self.notify_save_status)
             self.save_thread.finished.connect(self.save_thread.deleteLater)
             self.save_thread.finished.connect(lambda: setattr(self, "save_thread", None))
@@ -252,7 +252,7 @@ class Visualization(VisualizationLayout):
 
     
     def setupWebEngine(self):
-        local_path = os.path.abspath("assests/visualization/placeHoder_html/place_holder_html.html")
+        local_path = os.path.abspath(resource_path("assests/visualization/placeHoder_html/place_holder_html.html"))
         dummy_place_holder = QUrl.fromLocalFile(local_path)
 
         self.Canvas.load(dummy_place_holder)

@@ -1,4 +1,5 @@
 .venv
 .git
 test.py
-__pycache__
+dist
+build

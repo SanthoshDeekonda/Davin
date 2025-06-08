@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QStackedLayout, 
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtCore import QSize
-from util import DropLineEdit, load_style, DraggableListWidget, Animation_Lable
+from util import DropLineEdit, load_style, DraggableListWidget, Animation_Lable, resource_path
 
 
 class VisualizationLayout(QWidget):
@@ -40,9 +40,9 @@ class VisualizationLayout(QWidget):
         self.chartStack = QStackedLayout()
         self.chartContainer.setLayout(self.chartStack)
 
-        self.chart_place_holder = Animation_Lable("assests/mainWindow/UI_GIF/graph_animation.gif")
+        self.chart_place_holder = Animation_Lable(resource_path("assests/mainWindow/UI_GIF/graph_animation.gif"))
         self.Canvas = QWebEngineView()
-        self.graph_loading_screen = Animation_Lable("assests/mainWindow/UI_GIF/Loading_Animation.gif")
+        self.graph_loading_screen = Animation_Lable(resource_path("assests/mainWindow/UI_GIF/Loading_Animation.gif"))
 
 
         self.save_btn = QPushButton()
@@ -56,7 +56,7 @@ class VisualizationLayout(QWidget):
         self.setupFooter()
 
 
-        self.setStyleSheet(load_style("assests/visualization/themes/visualizationLight.qss"))
+        self.setStyleSheet(load_style(resource_path("assests/visualization/themes/visualizationLight.qss")))
         self.setLayout(self.Visualization_MainLayout)
         
 
@@ -103,9 +103,9 @@ class VisualizationLayout(QWidget):
         self.Visualization_footer.addWidget(self.color_picker_btn)
         self.Visualization_footer.addWidget(self.clear_btn)
 
-        self.save_btn.setIcon(QIcon("assests/visualization/buttons/Save.png"))
-        self.color_picker_btn.setIcon(QIcon("assests/visualization/buttons/Color.png"))
-        self.download_btn.setIcon(QIcon("assests/visualization/buttons/dowload.png"))
+        self.save_btn.setIcon(QIcon(resource_path("assests/visualization/buttons/Save.png")))
+        self.color_picker_btn.setIcon(QIcon(resource_path("assests/visualization/buttons/Color.png")))
+        self.download_btn.setIcon(QIcon(resource_path("assests/visualization/buttons/dowload.png")))
 
 
         self.Visualization_footer.addSpacerItem(QSpacerItem(40, 20,  QSizePolicy.Expanding, QSizePolicy.Minimum))
@@ -120,19 +120,19 @@ class VisualizationLayout(QWidget):
         font = QFont("Segoe UI", 10)
 
         charts = [
-            ("Bar Chart", "assests/visualization/images/BarChart.png"),
-            ("Horizontal Bar Chart", "assests/visualization/images/HbarChart.png"),
-            ("Pie Chart", "assests/visualization/images/PieChart.png"),
-            ("Scatter Plot", "assests/visualization/images/ScatterPlot.png"),
-            ("Line Plot", "assests/visualization/images/linePlot.png"),
-            ("Histogram", "assests/visualization/images/Histogram.png"),
-            ("Area Chart", "assests/visualization/images/AreaChart.png"),
-            ("Box Plot", "assests/visualization/images/Box Plot.png"),
-            ("Donut Chart", "assests/visualization/images/Donut_chart.png"),
-            ("Waterfall", "assests/visualization/images/Waterfall_chart.png"),
-            ("Treemap", "assests/visualization/images/treemap.png"),
-            ("Radar Chart", "assests/visualization/images/radar_chart.png"),
-            ("Bubble Chart", "assests/visualization/images/Bubble_chart.png")
+            ("Bar Chart", resource_path("assests/visualization/images/BarChart.png")),
+            ("Horizontal Bar Chart", resource_path("assests/visualization/images/HbarChart.png")),
+            ("Pie Chart", resource_path("assests/visualization/images/PieChart.png")),
+            ("Scatter Plot", resource_path("assests/visualization/images/ScatterPlot.png")),
+            ("Line Plot", resource_path("assests/visualization/images/linePlot.png")),
+            ("Histogram", resource_path("assests/visualization/images/Histogram.png")),
+            ("Area Chart", resource_path("assests/visualization/images/AreaChart.png")),
+            ("Box Plot", resource_path("assests/visualization/images/Box Plot.png")),
+            ("Donut Chart", resource_path("assests/visualization/images/Donut_chart.png")),
+            ("Waterfall", resource_path("assests/visualization/images/Waterfall_chart.png")),
+            ("Treemap", resource_path("assests/visualization/images/treemap.png")),
+            ("Radar Chart", resource_path("assests/visualization/images/radar_chart.png")),
+            ("Bubble Chart", resource_path("assests/visualization/images/Bubble_chart.png"))
         ]
 
         for label, path in charts:

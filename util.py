@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 import os
 import pandas as pd
 import numpy as np
+import sys
 
 
 
@@ -275,3 +276,10 @@ def checkFileFormat(file: str) -> str:
     _,ext = os.path.splitext(file)
     return ext
  
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS2
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
