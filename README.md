@@ -57,5 +57,5 @@ Davin is a user-friendly desktop application built using **Python** and **PyQt5*
 
 1. **Clone this repository:**
    ```bash
-   git clone https://github.com/your-username/davin.git
+   git clone https://github.com/SanthoshDeekonda/Davin
    cd davin
